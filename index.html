@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Repeat Countdown Timer</title>
+</head>
+<body>
+  <div id="timer">10</div>
+  <script>
+    var count = 10;
+    var counter = setInterval(timer, 1000);
+
+    function timer() {
+      count = count - 1;
+      if (count <= 0) {
+        clearInterval(counter);
+        count = 10;
+        counter = setInterval(timer, 1000);
+      }
+      document.getElementById("timer").innerHTML = count;
+    }
+  </script>
+</body>
+</html>
