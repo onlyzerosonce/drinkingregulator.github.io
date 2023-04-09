@@ -1,32 +1,97 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Repeat Countdown Timer</title>
-  <style>
-    body {
-      background-color: #202020;
-      color: #ffffff;
-    }
-    #timer {
-      font-size: 2em;
-    }
-  </style>
-</head>
-<body>
-  <div id="timer">10</div>
-  <script>
-    var count = 10;
-    var counter = setInterval(timer, 1000);
 
-    function timer() {
-      count = count - 1;
-      if (count <= 0) {
-        clearInterval(counter);
-        count = 10;
-        counter = setInterval(timer, 1000);
-      }
-      document.getElementById("timer").innerHTML = count;
-    }
-  </script>
+<head>
+    <title>Repeat Countdown Timer</title>
+    <style>
+        body {
+            background-color: #202020;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .top-section {
+            height: 600px;
+            width: 1300px;
+            background-color: #04041b;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .top-h1 {
+            color: #E8E8E8;
+            font-size: 60px;
+        }
+
+        .input-message {
+            color: white;
+            font-size: 30px;
+        }
+        .time-input {
+            color: white;
+            font-size: 30px;
+        }
+        .start-button {
+            color: white;
+            font-size: 30px;
+        }
+        .countdown-timer {
+            color: white;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-section">
+
+        <div class="top-h1">
+            <h1>Drinking Regulator</h1>
+        </div>
+        <div class="input-message">
+            <p>Enter time between two sips:</p>
+        </div>
+        <div class="time-input">
+            <input type="time" id="countdown-input" value="05:00">
+        </div>
+        <div class="start-button">
+        <button onclick="startCountdown()">Start Drinking</button>
+        </div>
+        <div id="countdown-timer"></div>
+        <audio id="bell">
+            <source src="bell.wav" type="audio/wav">
+        </audio>
+
+        <script>
+            var countdownTimer;
+
+            function startCountdown() {
+                var timeInput = document.getElementById("countdown-input").value;
+                var timeArray = timeInput.split(":");
+                var minutes = parseInt(timeArray[0]);
+                var seconds = parseInt(timeArray[1]);
+                var inputSeconds = minutes * 60 + seconds;
+                var seconds = inputSeconds;
+
+                countdownTimer = setInterval(function () {
+                    seconds--;
+                    document.getElementById("countdown-timer").innerHTML = seconds + " seconds remaining for next sip";
+                    if (seconds == 0) {
+                        document.getElementById("countdown-timer").innerHTML = "Take a sip, cheers !!! ";
+                        var audio = document.getElementById("bell");
+                        audio.play();
+                        seconds = inputSeconds
+                    }
+                }, 1000);
+
+            }
+        </script>
+    </div>
 </body>
+
 </html>
